@@ -21,6 +21,27 @@ function transform(arr) {
   let discardPrev = "--discard-prev";
   let doubleNext = "--double-next";
   let doublePrev = "--double-prev";
+
+  let transformed = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    const element = arr[i];
+    const nextElement = arr[i + 1];
+    const prevElement = arr[i - 1];
+
+    if (element === discardNext) {
+      arr.splice(i, 2);
+    } else if (element && element === discardPrev) {
+      transformed.pop();
+    } else if (element === doubleNext) {
+      nextElement && transformed.push(nextElement);
+    } else if (element === doublePrev) {
+      prevElement && transformed.push(prevElement);
+    } else {
+      transformed.push(element);
+    }
+  }
+  return transformed;
 }
 
 module.exports = {
